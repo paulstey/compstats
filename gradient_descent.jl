@@ -7,71 +7,70 @@
 
 
 
+
 function sq_error_loss(X, y, beta, n)
-	## X is our matrix of predictors
-	## y is our outcome
-	## beta is our matrix of regression coefs.
 
-	h = X*beta
+   h = X*beta
 
-	J = 1/(2*n) * sum((h-y).^2)
+   J = 1/(2*n) * sum((h-y).^2)
 
-	return J
+   return J
 end
 
 
 
 
-function gradient_des(X, y, beta, alpha, iters)
-	## X is our matrix of predictors
-	## y is our outcome
-	## beta is our matrix of regression coefs.
-	## alpha is our learning rate or step size
-	## iters is the max number of iterations
+function gradient_des(X, y, beta, a, iters)
+   ## a is our learning rate or step size
+   ## iters is the max number of iterations
 
-    n, p = size(X)
+   n, p = size(X)
 
-    tmp = zeros(p)
+   tmp = zeros(p)
 
-    j_hist = zeros(iters)
+   j_hist = zeros(iters)
 
-    for i = 1:iters
+   for i = 1:iters
 
-    	for j = 1:p
+      for j = 1:p
 
-        	tmp[j] = beta[j] - alpha * (1/n) * sum((X*beta - y).*X[:, j])  
-        end
+         tmp[j] = beta[j] - a * (1/n) * sum((X*beta - y).*X[:, j])  
+      end
 
-        ## update parameter estimates
-        beta = tmp
+      ## update parameter estimates
+      beta = tmp
 
-        j_hist[i] = sq_error_loss(X, y, beta, n)
+      j_hist[i] = sq_error_loss(X, y, beta, n)
 
-        if i > 1 && abs(j_hist[i] - j_hist[i-1]) < 0.0001
+      if i > 1 && abs(j_hist[i] - j_hist[i-1]) < 0.0001
 
-        	break
-        end
-    end
+         break
+      end
+   end
 
-    return beta
+   return beta
 end
 
 
 
 
-function linreg(X, y)
 
-	p = size(X, 2)
+function lmfit(X, y, intercpt = true, a = 0.01, iter = 1000)
 
-	beta = zeros(p)	  							# initialize param est.
+   n = length(y)
 
-	a = 0.01  									# learning rate
+   if intercpt
 
-	iter = 1000   								# max iterations
+      X = [ones(n) X]
+   end
 
-	beta = gradient_des(X, y, beta, a, iter)
+   p = size(X, 2)
 
-	return beta
+   beta = zeros(p)                           # initialize param est.
+
+   beta = gradient_des(X, y, beta, a, iter)
+
+   return beta
 end
 
 
@@ -91,7 +90,7 @@ y = X*beta + randn(1000)
 
 
 
-linreg(X, y)
+lmfit(X, y, false, 0.005, 1500)
 
 
 
