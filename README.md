@@ -2,7 +2,7 @@
 
 I'm going to put some Julia code here as I work through a few computational stats examples. 
 
-As always, _caveat emptor_..
+As is always the case, _caveat emptor_.
 
 
 
