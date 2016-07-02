@@ -1,8 +1,8 @@
-# Compuational Stats Fun!
+# Compuational Stats
 
-I'm going to put some Julia code here as I work through a few computational stats examples. 
+Put some Julia code here for a few computational stats examples. 
 
-As is always the case, _caveat emptor_.
+
 
 
 
