@@ -8,11 +8,10 @@
 
 function sq_error_loss(X, y, beta, n)
     h = X*beta
-    J = 1/(2*n) * sum((h-y).^2)
+    J = 1/(2n) * sum((h-y).^2)
 
     return J
 end
-
 
 
 function gradient_des(X, y, beta, a, iters)
@@ -40,11 +39,8 @@ function gradient_des(X, y, beta, a, iters)
 end
 
 
-
 function lmfit(X, y, intercpt = true, a = 0.01, iter = 1000)
-
     n = length(y)
-
     if intercpt
         X = [ones(n) X]
     end
@@ -56,13 +52,7 @@ function lmfit(X, y, intercpt = true, a = 0.01, iter = 1000)
     return beta
 end
 
-
-
-
-###
 # simulate some data
-###
-
 X = randn(1000, 5)
 X = [ones(1000) X]
 beta = [1, 2, 1, 2, 3, 4]
@@ -70,6 +60,3 @@ beta = [1, 2, 1, 2, 3, 4]
 y = X*beta + randn(1000)
 
 lmfit(X, y, false, 0.005, 1500)
-
-
-
