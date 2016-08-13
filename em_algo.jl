@@ -5,7 +5,8 @@
 # Author: Paul Stey
 #########
 
-using DataArray, Distributions
+using DataArray
+using Distributions
 
 function loglk(y, mu, sig2, n)
     soln = -0.5*n*log(2*pi*sig2) - 0.5*sum((y - mu).^2)/sig2
@@ -45,9 +46,7 @@ end
 
 
 
-###
 # Simuation
-###
 
 gauss = Normal(100, 10)                             # set up distribution
 x = rand(gauss, 25)                                 # simulate data
@@ -57,8 +56,3 @@ x[1:7] = NA                                         # make data missing
 
 
 em_norm(x)
-
-
-
-
-
